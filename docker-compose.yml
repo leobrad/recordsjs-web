@@ -3,11 +3,8 @@ services:
     image: node
     ports:
       - 3006:3006
-    working_dir: /var/drip-package-frontend/
+    working_dir: /var/recordsjs-web/
     volumes:
-      - ./static:/var/drip-package-frontend/static
-      - ./readme/:/Users/eric/OpenSource/drip-file/docker/drip-package-frontend/readme/
-      - ./dist:/var/drip-package-frontend/dist/
-      - ./node_modules/:/var/drip-package-frontend/node_modules/
-      - ./asset/:/var/drip-package-frontend/asset/
-    command: node ./dist/index.js -p 3006 -r ./readme/
+      - ./dist:/var/recordsjs-web/dist/
+      - ./node_modules/:/var/recordsjs-web/node_modules/
+    command: node ./dist/index.js -p 3006
