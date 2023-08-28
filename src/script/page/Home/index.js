@@ -41,6 +41,13 @@ class Home extends React.Component {
           time.Because when database start need read all data to cache.This
           operate will cost huge time cost.
         </div>
+        <div>
+          In general,high speed store device is more expensive and only store
+          less content.Disk and memory is same logic.Memory is alway has less
+          store space than disk.Records.js will help user use small memory try
+          the best do cache big disk space.You will have benifit of disk big
+          store space and memory high read and write speed.
+        </div>
       </div>
     );
   }
