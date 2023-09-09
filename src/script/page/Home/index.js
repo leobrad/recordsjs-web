@@ -49,7 +49,7 @@ class Home extends React.Component {
           store space and memory high read and write speed.
         </div>
         <div className={style.passage}>
-          Follow Records.js run for long time.Memory usage rate is increase step
+          Follow records.js run for long time.Memory usage rate is increase step
           by step.In this time,memory will out of limit.Records.js provider
           function help release part of temporay memory reasonable.In this way
           limited memory is alway enough for long run time.
