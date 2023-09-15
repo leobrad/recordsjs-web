@@ -50,6 +50,13 @@ class Introduce extends React.Component {
           is object data.Update data object is mapping specify table record.Update
           data object must specify update record id.
         </li>
+        <li>
+          emptyCache() is additional records.js function.When user manual modify
+          database data bypass records.js function.In before time,user must
+          reboot entire records.js related application.Add to this function,
+          user can only empty records.js cache without reboot entire records.js
+          related application.
+        </li>
       </ul>
     );
   }
