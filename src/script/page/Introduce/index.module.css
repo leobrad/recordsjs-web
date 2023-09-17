@@ -1,0 +1,11 @@
+.list
+  font-size: 20px
+  list-style-type: none
+  margin: 0
+  padding: 0
+  text-indent: 2em
+.item
+  line-height: 1.1
+  color: rgb(255, 255, 255)
+  padding: 21px 30px 21px 30px
+  background-color: rgb(40, 40, 40)
