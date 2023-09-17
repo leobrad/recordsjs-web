@@ -34,8 +34,8 @@ class Introduce extends React.Component {
           insert(cnt) is correspond to database insert function.
           <Parameter>
             cnt can be adapter as a data object array or single data object.
-            Insert data object mapping specify table record.
           </Parameter>
+          Insert data object mapping specify table record.
         </li>
         <li className={style.item}>
           deleteExchange(id, total) is additional database delete function.
