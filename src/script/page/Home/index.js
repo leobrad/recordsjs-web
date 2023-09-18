@@ -4,7 +4,7 @@ import style from './index.module.css';
 class Home extends React.Component {
   render() {
     return (
-      <div>
+      <>
         <div className={style.passage}>
           Records.js is database cache library.Why need do this?Database store
           data in the disk.Read and write speed is lower than memory.Records.js
@@ -54,7 +54,7 @@ class Home extends React.Component {
           function help release part of temporay memory reasonable.In this way
           limited memory is alway enough for long run time.
         </div>
-      </div>
+      </>
     );
   }
 }
