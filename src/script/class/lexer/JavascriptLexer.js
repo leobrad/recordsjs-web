@@ -1,16 +1,13 @@
 import Lexer from './Lexer';
 
-let singleQuoteClose = 0;
-let doubleQuoteClose = 0;
-let bigBracketStartDuplicate = 0;
-let bigBracketEndDuplicate = 0;
-let smallBracketEndDuplicate = 0;
-let commaDuplicate = 0;
-let semicolonDuplicate = 0;
-
 class JavascriptLexer extends Lexer {
   constructor(...params) {
     super(...params);
+  }
+
+  checkLexerDuplicate(type) {
+    const { length, } = this.ans;
+    return this.ans[length - 1].type === type;
   }
 
   scan(char) {
@@ -21,75 +18,51 @@ class JavascriptLexer extends Lexer {
             this.ans.push(this.makeLexer('.'));
             return this.quit();
           case '(':
-            this.ans.push(this.makeLexer('smallBracket', '('));
+            this.ans.push(this.makeLexer('('));
             return this.quit();
           case ')':
-            if (smallBracketEndDuplicate === 0) {
-              this.ans.push(this.makeLexer('smallBracket', ')'));
-              smallBracketEndDuplicate = 1;
+            if (!this.checkLexerDuplicate(')')) {
+              this.ans.push(this.makeLexer(')'));
               return this.quit();
-            } else {
-              smallBracketEndDuplicate = 0;
-              break;
             }
           case '{':
-            if (bigBracketStartDuplicate === 0) {
-              this.ans.push(this.makeLexer('bigBracket', '{'));
-              bigBracketStartDuplicate = 1;
+            if (!this.checkLexerDuplicate('{')) {
+              this.ans.push(this.makeLexer('{'));
               return this.quit();
-            } else {
-              bigBracketStartDuplicate = 0;
-              break;
             }
           case '}':
-            if (bigBracketEndDuplicate === 0) {
-              this.ans.push(this.makeLexer('bigBracket', '}'));
-              bigBracketEndDuplicate = 1
+            if (!this.checkLexerDuplicate('}')) {
+              this.ans.push(this.makeLexer('}'));
               return this.quit();
-            } else {
-              bigBracketEndDuplicate = 0;
-              break;
             }
           case ';':
-            if (semicolonDuplicate === 0) {
+            if (!this.checkLexerDuplicate(';')) {
               this.ans.push(this.makeLexer(';'));
-              semicolonDuplicate = 1;
               return this.quit();
-            } else {
-              semicolonDuplicate = 0;
-              break;
             }
           case ':':
             this.ans.push(this.makeLexer(':'));
             return this.quit();
           case ',':
-            if (commaDuplicate === 0) {
+            if (!this.checkLexerDuplicate(',')) {
               this.ans.push(this.makeLexer(','));
-              commaDuplicate = 1;
               return this.quit();
-            } else {
-              commaDuplicate = 0;
-              break;
             }
-          case '"':
-            if (doubleQuoteClose === 0) {
+          case '"': {
+            if (!this.checkLexerDuplicate('"')) {
               this.elem = [];
               this.ans.push(this.makeLexer('"'));
-              this.status = 2;
-              return;
-            } else {
-              doubleQuoteClose = 0;
-            }
-          case "'": {
-            if (singleQuoteClose === 0) {
-              this.elem = [];
-              this.ans.push(this.makeLexer("'"));
               this.status = 3;
               return;
-            } else {
-              singleQuoteClose = 0;
             }
-            break;
+          }
+          case "'": {
+            if (!this.checkLexerDuplicate("'")) {
+              this.elem = [];
+              this.ans.push(this.makeLexer("'"));
+              this.status = 4;
+              break;
+            }
           }
         }
         const code = char.charCodeAt(0);
@@ -112,6 +85,9 @@ class JavascriptLexer extends Lexer {
           (code > 58 && code <= 64) || (code === 95)
         ) {
           this.elem.push(char);
+        } else if (code >= 48 && code <= 57) {
+          this.status = 2;
+          this.elem.push(char);
         } else {
           this.ans.push(this.makeLexer('identifer', this.elem.join('')));
           return this.quit();
@@ -119,8 +95,18 @@ class JavascriptLexer extends Lexer {
         break;
       }
       case 2: {
+        const code = char.charCodeAt(0);
+        if (code >= 48 && code <= 57) {
+          this.elem.push(char);
+        } else {
+          this.ans.push(this.makeLexer('identifer', this.elem.join('')));
+          return this.quit();
+        }
+        break;
+      }
+      case 3: {
         if (char === '"') {
-          this.ans.push(this.makeLexer('string', this.elem.join('')))
+          this.ans.push(this.makeLexer('string', this.elem.join('')));
           this.ans.push(this.makeLexer('"'));
           doubleQuoteClose = 1;
           return this.quit();
@@ -129,9 +115,9 @@ class JavascriptLexer extends Lexer {
         }
         break;
       }
-      case 3: {
+      case 4: {
         if (char === "'") {
-          this.ans.push(this.makeLexer('string', this.elem.join('')))
+          this.ans.push(this.makeLexer('string', this.elem.join('')));
           this.ans.push(this.makeLexer("'"));
           singleQuoteClose = 1;
           return this.quit();
