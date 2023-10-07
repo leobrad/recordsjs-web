@@ -108,7 +108,6 @@ class JavascriptLexer extends Lexer {
         if (char === '"') {
           this.ans.push(this.makeLexer('string', this.elem.join('')));
           this.ans.push(this.makeLexer('"'));
-          doubleQuoteClose = 1;
           return this.quit();
         } else {
           this.elem.push(char);
@@ -119,7 +118,6 @@ class JavascriptLexer extends Lexer {
         if (char === "'") {
           this.ans.push(this.makeLexer('string', this.elem.join('')));
           this.ans.push(this.makeLexer("'"));
-          singleQuoteClose = 1;
           return this.quit();
         } else {
           this.elem.push(char);

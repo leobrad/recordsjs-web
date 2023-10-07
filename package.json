@@ -1,7 +1,7 @@
 {
   "name": "recordsjs-web",
   "version": "0.0.1",
-  "description": "record.js document website.",
+  "description": "Record.js document website.",
   "main": "index.js",
   "repository": "git@github.com:leobrad/recordsjs-web.git",
   "author": "Leo Brad",

@@ -1,2 +1,3 @@
 # recordsjs-web
-records.js document website.
+
+Records.js document website.
