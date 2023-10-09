@@ -2,6 +2,7 @@ import React from 'react';
 import '~/style/index.css';
 import style from './index.module.css';
 import Container from '~/script/component/Container';
+import Tab from '~/script/component/Tab';
 import global from '~/script/obj/global';
 
 const {
@@ -72,6 +73,7 @@ class Router extends React.Component {
       router =
       <Container>
         <div id="page" className={style.page}>{this.getPage(location)}</div>
+        <Tab />
       </Container>
     }
     return router;
